@@ -1,114 +1,104 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(new MaterialApp(
-    title: 'Flutter Tutorial',
-    home: new TutorialHome(),
+import 'home/home.dart';
+import 'message/message.dart';
+import 'more/more.dart';
+import 'update/update.dart';
+
+main() {
+  runApp(MaterialApp(
+    home: MainPage(),
+    theme: new ThemeData(
+      primaryColor: Color(0xFFC91B3A),
+      backgroundColor: Color(0xFFEFEFEF),
+      accentColor: Color(0xFF888888),
+      textTheme: TextTheme(
+        //设置Material的默认字体样式
+        body1: TextStyle(color: Color(0xFF888888), fontSize: 16.0),
+      ),
+      iconTheme: IconThemeData(
+        color: Color(0xFFC91B3A),
+        size: 35.0,
+      ),
+    ),
   ));
 }
 
-class TutorialHome extends StatelessWidget {
+class MainPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    //Scaffold是Material中主要的布局组件.
-    return new Scaffold(
-      appBar: new AppBar(
-        leading: new IconButton(
-          icon: new Icon(Icons.menu),
-          tooltip: 'Navigation menu',
-          onPressed: null,
-        ),
-        title: new Text('Example title'),
-        actions: <Widget>[
-          new IconButton(
-            icon: new Icon(Icons.search),
-            tooltip: 'Search',
-            onPressed: null,
-          ),
-        ],
-      ),
-      //body占屏幕的大部分
-      body: new Column(children: [
-        new Text('Hello, world!'),
-        new MyButton(),
-        new Counter(),
-      ]),
-      floatingActionButton: new FloatingActionButton(
-        tooltip: 'Add', // used by assistive technologies
-        child: new Icon(Icons.add),
-        onPressed: null,
-      ),
-    );
+  State<StatefulWidget> createState() {
+    return MainPageState();
   }
 }
 
-class MyButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new GestureDetector(
-      onTap: () {
-        print('MyButton was tapped!');
-      },
-      child: new Container(
-        height: 36.0,
-        padding: const EdgeInsets.all(8.0),
-        margin: const EdgeInsets.symmetric(horizontal: 8.0),
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.circular(5.0),
-          color: Colors.lightGreen[500],
-        ),
-        child: new Center(
-          child: new Text('Engage'),
-        ),
-      ),
-    );
-  }
-}
-
-class CounterDisplay extends StatelessWidget {
-  CounterDisplay({this.count});
-
-  final int count;
+class MainPageState extends State<MainPage>
+    with SingleTickerProviderStateMixin {
+  int currentTab = 0;
+  List tabs = [
+    ['首页', Icon(Icons.home)],
+    ['消息', Icon(Icons.message)],
+    ['更新', Icon(Icons.update)],
+    ['我的', Icon(Icons.more_horiz)],
+  ];
+  List<Tab> navTabs = [];
+  TabController tabController;
 
   @override
-  Widget build(BuildContext context) {
-    return new Text('Count: $count');
-  }
-}
-
-class CounterIncrementor extends StatelessWidget {
-  CounterIncrementor({this.onPressed});
-
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return new RaisedButton(
-      onPressed: onPressed,
-      child: new Text('Increment'),
-    );
-  }
-}
-
-class Counter extends StatefulWidget {
-  @override
-  _CounterState createState() => new _CounterState();
-}
-
-class _CounterState extends State<Counter> {
-  int _counter = 0;
-
-  void _increment() {
-    setState(() {
-      ++_counter;
+  void initState() {
+    super.initState();
+    tabController = TabController(
+        initialIndex: currentTab, length: tabs.length, vsync: this);
+    for (int i = 0; i < tabs.length; i++) {
+      navTabs.add(Tab(text: tabs[i][0], icon: tabs[i][1]));
+    }
+    tabController.addListener(() {
+      if (tabController.indexIsChanging) {
+        _onTabChanged();
+      }
     });
   }
 
+  void _onTabChanged() {
+    if (this.mounted) {
+      setState(() {
+        currentTab = tabController.index;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new Row(children: <Widget>[
-      new CounterIncrementor(onPressed: _increment),
-      new CounterDisplay(count: _counter),
-    ]);
+    return Scaffold(
+      appBar: AppBar(title: Text(tabs[tabController.index][0])),
+      body: TabBarView(controller: tabController, children: [
+        HomePage(),
+        MessagePage(),
+        UpdatePage(),
+        MorePage(),
+      ]),
+      bottomNavigationBar: Material(
+        child: SafeArea(
+            child: Container(
+          height: 60,
+          decoration: BoxDecoration(
+            color: const Color(0xFFF0F0F0),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: const Color(0xFFd0d0d0),
+                blurRadius: 3.0,
+                spreadRadius: 2.0,
+                offset: Offset(-1.0, -1.0),
+              ),
+            ],
+          ),
+          child: TabBar(
+              indicatorColor: Theme.of(context).primaryColor,
+              labelColor: Theme.of(context).primaryColor,
+              unselectedLabelColor: const Color(0xFF8E8E8E),
+              controller: tabController,
+              tabs: navTabs),
+        )),
+      ),
+    );
   }
 }
