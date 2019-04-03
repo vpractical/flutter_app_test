@@ -8,28 +8,29 @@ main() async {
 
   //then catchError whenComplete
   new Future(() => futureTask()) //  异步任务的函数
-      .then((m) => "a:$m") //   任务执行完后的子任务
-      .then((m) => print('a$m')) //  其中m为上个任务执行完后的返回的结果
-      .then((_) => new Future.error('error'))
-      .then((m) => print('damon'))
-      .whenComplete(() => print('whenComplete1')) //不是最后执行whenComplete，通常放到最后回调
+          .then((m) => "a:$m") //   任务执行完后的子任务
+          .then((m) => print('a$m')) //  其中m为上个任务执行完后的返回的结果
+          .then((_) => new Future.error('error'))
+          .then((m) => print('damon'))
+          .whenComplete(
+              () => print('whenComplete1')) //不是最后执行whenComplete，通常放到最后回调
 
 //      .catchError((e) => print(e))//如果不写test默认实现一个返回true的test方法
-      .catchError((e) => print('catchError:' + e), test: (Object o) {
-        print('test:' + o);
-        return true; //返回true，会被catchError捕获
+          .catchError((e) => print('catchError:' + e), test: (Object o) {
+    print('test:' + o);
+    return true; //返回true，会被catchError捕获
 //        return false; //返回false，继续抛出错误，会被下一个catchError捕获
-      })
-      .catchError((e) => print('catchError2:' + e))
+  }).catchError((e) => print('catchError2:' + e))
 //      .then((m) => print('dongnao'))
 //      .whenComplete(() => print('finish'))
- ;
+      ;
 
   // Future
-//  testFuture();
+  testFuture();
 
-  //scheduleMicrotask
-//  testScheduleMicrotask();
+  print('-----/n\n');
+//  scheduleMicrotask
+  testScheduleMicrotask();
 }
 
 //then catchError whenComplete
