@@ -1,0 +1,12 @@
+///MaterialApp的build返回的就是WidgetsApp，可以说WidgetsApp是MaterialApp的父类
+///
+///WidgetsApp特有的字段：
+///textStyle
+///debugShowWidgetInspector（调试小部件检测）
+///inspectorSelectButtonBuilder审查员选择按钮生成器
+///
+///MaterialApp特有的字段：
+///home（主页）
+///routes（路由）
+///theme（主题）
+///debugShowMaterialGrid（调试显示材质网格）
