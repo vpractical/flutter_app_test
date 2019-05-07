@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-///凸起的按钮，其实就是Android中的Material Design风格的Button ，继承自MaterialButton
+///RaisedButton凸起的按钮，其实就是Android中的Material Design风格的Button ，继承自MaterialButton
 ///FlatButton扁平化的按钮，继承自MaterialButton
 ///OutlineButton带边框且背景透明的按钮
 ///IconButton图标按钮,继承自StatelessWidget
