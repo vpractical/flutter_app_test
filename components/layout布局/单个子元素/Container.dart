@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 
-///子组件确定则随子组件大小，否则充满父组件
-///
-///如果Container没有子Widget，没有height，没有width，没有constraints，并且父窗口提供无限制约束，则尝试尽可能小
-///1.采用alignment
-///2.以child调整自身大小
-///3.采用了width，height和constraints
-///4.扩大以适应父Widget
-///5.要尽可能小
+///优先填充，然后宽高，然后适应child,没有宽高有child，适应child
+///总之Container遵从parent期望宽高和child宽高和自身属性如alignment期望来确定的
 void main() {
   runApp(MaterialApp(
     home: Scaffold(
