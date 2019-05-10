@@ -53,7 +53,7 @@ class _BodyState extends State<Body> {
         addSemanticIndexes: true,
         //预加载区域
         cacheExtent: 40,
-        //???
+        //辅助功能会用到
 //      semanticChildCount: ,
         dragStartBehavior: DragStartBehavior.start,
         children: <Widget>[

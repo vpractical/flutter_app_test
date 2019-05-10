@@ -83,21 +83,22 @@ class _AppState extends State<App> with SingleTickerProviderStateMixin {
         title: TabBar(
           tabs: _tabs,
           controller: _tabController,
-          isScrollable: false,
           //是否可滚动,
+          isScrollable: false,
+          //指示器
 //          indicator: BoxDecoration(
 //            color: Colors.yellow,
-//          ),//指示器
+//          ),
           indicatorColor: Colors.red,
-          indicatorWeight: 5,
           //指示器高度,断言不能小于0
+          indicatorWeight: 5,
           indicatorPadding: EdgeInsets.zero,
-          indicatorSize: TabBarIndicatorSize.tab,
           //指示器宽度，label和文字等宽，tab和item等宽
-          labelColor: Colors.black,
+          indicatorSize: TabBarIndicatorSize.tab,
           //文字颜色
-          labelPadding: EdgeInsets.all(5),
+          labelColor: Colors.black,
           //文字外边距，如调整和指示器的距离等
+          labelPadding: EdgeInsets.all(5),
           labelStyle: TextStyle(backgroundColor: Colors.greenAccent),
           unselectedLabelColor: Colors.white,
           unselectedLabelStyle: TextStyle(),

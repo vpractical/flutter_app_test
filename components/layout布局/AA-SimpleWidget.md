@@ -4,6 +4,7 @@
 # Padding : 为子组件添加padding
 # SizedBox : 特定大小的盒子,设置了宽高会强制把child尺寸调到此宽高
 # Table : 表格
+# SingleChildScrollView : 类似ScrollView,包括单个view使其超出屏幕时可滚动
 
 # FittedBox : fit属性调整填充模式，按自己的大小和fit调整子组件大小
 # AspectRatio : 将子widget的大小指定为某个特定的长宽比
@@ -18,6 +19,7 @@
 # SizedOverflowBox : 约= SizedBox + ConstrainedBox
 # CustomSingleChildLayout : 自定义的拥有单个子widget的布局widget
 # CustomMultiChildLayout
+# Scrollable : 建立显示可滚动内容的视区
 
 
 
