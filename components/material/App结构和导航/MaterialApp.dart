@@ -21,38 +21,43 @@ void main() {
   List<NavigatorObserver> navObservers = [RouteNavigatorObserver()];
 
   runApp(MaterialApp(
-    navigatorKey: GlobalKey(),
     //导航的key,
-    title: 'MaterialApp',
+    navigatorKey: GlobalKey(),
     //设备用于识别应用程序。在Android上，显示在任务管理器的应用程序上方，“最近的应程序”会显示
-    onGenerateTitle: (context) => 'generatedTitle',
+    title: 'MaterialApp',
     //要提供初始化的标题，可以用 onGenerateTitle
-//    home: Home(), //主页/
+    onGenerateTitle: (context) => 'generatedTitle',
+
+    //主页/
+//    home: Home(),
     routes: routes,
-    initialRoute: '/',
     //初始路由
+    initialRoute: '/',
+    //生成路由
 //    onGenerateRoute: (RouteSettings settings) => MaterialPageRoute<void>(
 //          settings: settings,
 //          builder: (BuildContext context) => Home(),
-//        ), //生成路由
+//        ),
+    //没有可用路由的路由，将路由顺序的123注释掉后可见
     onUnknownRoute: (RouteSettings settings) => MaterialPageRoute<void>(
           settings: settings,
           builder: (BuildContext context) => Text('路由统统不可用'),
         ),
-    //没有可用路由的路由，将路由顺序的123注释掉后可见
-    navigatorObservers: navObservers,
     //导航观察者,跳转时的回调,可以拿到当前路由和后面路由的信息
+    navigatorObservers: navObservers,
+    //有builder设置时，路由无效，直接返回builder结果
 //    builder: (BuildContext context, Widget child) {
 //      return Text('builder属性');
-//    }, //有builder设置时，路由无效，直接返回builder结果
-    color: Colors.red,
+//    },
     //任务管理器的标题背景颜色
+    color: Colors.red,
+
+    //属性多另外说
     theme: ThemeData(
       primaryColor: Color(0xFFC91B3A),
       backgroundColor: Color(0xFFEFEFEF),
       accentColor: Color(0xFF888888),
     ),
-    //属性多另外说
     darkTheme: ThemeData(),
 //    locale: Locale('en'), //支持的语言
 //    supportedLocales: const [Locale('en', 'US'), Locale('fi')], //支持的多国语言
